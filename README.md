@@ -1,29 +1,6 @@
 # crud-example
 
-## Project setup
-```
-yarn install
-```
+Provide reusable `ListService` and `EditService` which abstract commons logic, and combine with the service consumer components, to make CRUD more efficient.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Note: 
+It simply uses a singleton `Store` to assemble services, does not consider the lifecycle of a large data case. I still try to find an easy way that sync data and component's lifecycle, like `angular`.
