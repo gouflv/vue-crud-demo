@@ -36,3 +36,8 @@ export const GET = (url: string, options?: unknown): Promise<Response<unknown>> 
     message: ''
   })
 }
+
+export const POST = (url: string, options?: unknown): Promise<void> => {
+  console.debug(`POST ${url}`, JSON.stringify(options))
+  return Promise.resolve()
+}

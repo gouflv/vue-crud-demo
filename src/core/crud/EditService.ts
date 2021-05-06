@@ -1,5 +1,6 @@
 import { FormModel } from 'ant-design-vue'
-import { GET } from '../request/request'
+import { GET, POST } from '../request/request'
+import { ListService } from './ListService'
 
 /**
  * EditService<Store, T, P>
@@ -72,8 +73,28 @@ export abstract class EditService<Store, T, P> {
 
   public async onEditSubmit(): Promise<void> {
     console.log('onEditSubmit', this.data)
-    // TODO
-    this.visible = false
+
+    if (!this.formRef) {
+      throw new Error('formRef unset')
+    }
+
+    this.saving = true
+
+    try {
+      await this.formRef.validate()
+
+      await POST(this.getSubmitURL(), {
+        data: this.data
+      })
+
+      this.visible = false
+      this.requestListReload()
+
+    } catch (e) {
+      // TODO
+    } finally {
+      this.saving = false
+    }
   }
 
   public onCancel(): void {
@@ -87,6 +108,7 @@ export abstract class EditService<Store, T, P> {
   public async onRemove(params: P): Promise<void> {
     console.log('Remove', params)
     this.saving = true
+    this.requestListReload()
   }
 
   async fetchFromData(): Promise<void> {
@@ -120,6 +142,10 @@ export abstract class EditService<Store, T, P> {
 
   getRemoveURL(): string {
     return ''
+  }
+
+  requestListReload(): void {
+    ((this.store as any).list as ListService<unknown>).fetch()
   }
 
   /**

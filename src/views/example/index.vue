@@ -10,8 +10,8 @@
           rules: searchRules
         }"
       >
-        <a-form-model-item label="Name" prop="a">
-          <a-input v-model="list.search.a" />
+        <a-form-model-item label="Name" prop="name">
+          <a-input v-model="list.search.name" />
         </a-form-model-item>
       </SearchForm>
     </section>
@@ -68,10 +68,10 @@ export default Vue.extend({
       edit: store.edit,
 
       searchRules: {
-        a: { required: true }
+        name: { required: true }
       },
       editRules: {
-        a: { required: true }
+        name: { required: true }
       }
     }
   },
